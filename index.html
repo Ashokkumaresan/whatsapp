@@ -1,145 +1,21 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-	<title>WhatsApp</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>Message Pot</title>
+  <base href="/dist/state/">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">  
 
-	<style>
-		select, p, input {
-			font: 1em Calibri;
-		}
-
-		.none {
-			display:none;
-		}
-
-	</style>
-</head>
+<link rel="stylesheet" href="styles.68706b15385e70fc62af.css"></head>
 <body>
-	<div class="container">
-		<div class="row">
-			<h3 style="text-align: center;">WhatsApp Messaging System</h3>
-			<br>
-			<div class="col-md-6" style="margin:0 auto;display: block">
-				
-				<input type="radio" name='thing' value='valuable' data-id="manual" checked/>Database
-				<input type="radio" name='thing' value='valuable' data-id="database" />Manual
-
-				<br><br>
-
-				<div id="manual" class="none">
-					<div class="form-group ">
-						<input type="text" id="mobManual" name="" class="form-control" placeholder="Enter mobile number">
-					</div>
-					<div class="form-group ">
-						<textarea id="msgManual" class="form-control" placeholder="your message" ></textarea>
-					</div>
-					<div class="form-group">
-						<button type="submit" onclick="sendMsgManual()" id="sendMsgManual"  class="btn btn-primary">Send Message</button>
-					</div>
-				</div>
-
-
-
-
-				<div id="database" >
-					<div class="form-group ">
-						<input type="button" class="btn btn-primary" id="syncBtn" style="margin:10px 0;" onclick="populateData()" 
-						value="Populate Data from Database" />
-					</div>
-					<div class="form-group">
-						<select id="sel" onchange="show(this)" class="form-control" style="display: none;">
-							<option value="">-- Select --</option>
-						</select>
-						<br>
-						<p id="msg"></p>
-					</div>
-					<div class="form-group 	">
-						<textarea id="message" class="form-control" placeholder="your message" style="display: none;"></textarea>
-					</div>
-					<div class="form-group">
-						<button type="submit" onclick="sendMsg()" id="sendMsg" style="display: none;" class="btn btn-primary">Send Message</button>
-					</div>	
-				</div>			
-			</div>
-		</div>
-	</div>
-</body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-<script>
-
-	$(':radio').change(function (event) {
-		var id = $(this).data('id');
-		$('#' + id).addClass('none').siblings().removeClass('none');
-	});
-
-
-	function populateData() {
-		alert("Success, Data Populated");
-		$('#syncBtn').hide();
-		$('#sel').css("display", "block");
-        // THE JSON ARRAY.
-        var CustomerDB = [
-        {
-        	"ID": "001",
-        	"Phone": '919916762825',
-        	"Cust_Name": "Sudhanva S A"
-        },
-        {
-        	"ID": "002",
-        	"Phone": '919481249107',
-        	"Cust_Name": "Ashok Kumaresan"
-        },
-        {
-        	"ID": "003",
-        	"Phone": '918892403593',
-        	"Cust_Name": "Kaushik Krishnakumar"
-        }
-        ];
-
-        var ele = document.getElementById('sel');
-        for (var i = 0; i < CustomerDB.length; i++) {
-        	ele.innerHTML = ele.innerHTML +
-        	'<option value="' + CustomerDB[i]['Phone'] + '">' + CustomerDB[i]['Cust_Name'] + '</option>';
-        }
-    }
-
-    function show(ele) {
-    	var msg = document.getElementById('msg');
-    	msg.innerHTML = 'Customer: <b>' + ele.options[ele.selectedIndex].text + '</b> </br>' +
-    	'Phone: <b>' + ele.value + '</b>';
-    	$('#message').css("display", "block");
-    	$('#sendMsg').css("display", "block");
-
-    }
-
-    function sendMsg(){
-    	var ele = document.getElementById('sel');
-    	if($('#message').val() != ''){
-    		var number = ele.value
-    		var message = $('#message').val();
-    		window.location = 'https://api.whatsapp.com/send?phone=' + number + '&text=%20' + message;
-    	}
-    	else{
-    		alert('enter Message');
-    	}	
-    }
-
-    function sendMsgManual(){
-    	var number = $('#mobManual').val()
-    	var message =  $('#msgManual').val()
-
-    	if(number != '' || message != ''){
-    		window.location = 'https://api.whatsapp.com/send?phone=' + "91" + number + '&text=%20' + message;
-    	}
-    	else{
-    		alert('please fill the details to continue')
-    	}
-
-    	
-    }
-</script>
-
+  <app-root></app-root>
+<script type="text/javascript" src="runtime.c67e7c56528e93c1eb87.js"></script><script type="text/javascript" src="es2015-polyfills.a8a96050d7e77d4ccb78.js" nomodule></script><script type="text/javascript" src="polyfills.481858ef51fe27531859.js"></script><script type="text/javascript" src="main.0dc19adc6d68bf77490e.js"></script></body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js?ver3.3.1"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </html>
