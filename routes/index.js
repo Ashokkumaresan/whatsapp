@@ -11,7 +11,7 @@ router.use(cors())
 router.use(bodyParser.json());
 router.use(cookieParser());
 router.use(session({secret: "hotshot"}));
-path.basename('/dist/state/');
+path.basename('/');
 /*Start Login service*/
 var url='mongodb+srv://ashokkumaresan:Godfather@321@cluster0-rzsic.mongodb.net/test?retryWrites=true&w=majority'
 router.get('/api/login',function(req,res){
