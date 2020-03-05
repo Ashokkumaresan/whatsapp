@@ -250,6 +250,32 @@ else{
 });
 });
 
+router.put('/api/customer',function(req,res){
+	console.log("In Put");
+var query=req.body;
+console.log(query);
+MongoClient=mongo.MongoClient;
+MongoClient.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true } ,function(err,client){
+if(err){
+	console.log("Error is getting data "+err);
+}
+else{
+	var db = client.db('manis');
+	//console.log(db);
+	//var collection=db.collection("login");
+	db.collection('customer').updateOne({_id:ObjectID(query._id)},{$set:{'store_name':query.store_name,'driver_name':query.driver_name,'customer_phone':query.customer_phone,'customer_name':query.customer_name,'data_time':query.data_time,'message-type':query.message-type,'info':query.info}}, function (findErr, result) {
+		if (findErr) throw findErr;
+		console.log(result);
+		if(result)
+		 res.json("Success");
+		else
+		res.json({error:"Invalid Request"}); 
+		client.close();
+	  });
+}
+});
+});
+
 router.delete('/api/contacts',function(req,res){
 	console.log("In Put");
 var query=req.body;
@@ -264,6 +290,32 @@ else{
 	//console.log(db);
 	//var collection=db.collection("login");
 	db.collection('contacts').remove({_id:ObjectID(query._id)}, function (findErr, result) {
+		if (findErr) throw findErr;
+		console.log(result);
+		if(result)
+		 res.json("Success");
+		else
+		res.json({error:"Invalid Request"}); 
+		client.close();
+	  });
+}
+});
+});
+
+router.delete('/api/customer',function(req,res){
+	console.log("In Put");
+var query=req.body;
+console.log(query);
+MongoClient=mongo.MongoClient;
+MongoClient.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true } ,function(err,client){
+if(err){
+	console.log("Error is getting data "+err);
+}
+else{
+	var db = client.db('manis');
+	//console.log(db);
+	//var collection=db.collection("login");
+	db.collection('customer').remove({_id:ObjectID(query._id)}, function (findErr, result) {
 		if (findErr) throw findErr;
 		console.log(result);
 		if(result)
