@@ -13,20 +13,21 @@ router.use(cookieParser());
 router.use(session({secret: "hotshot"}));
 path.basename('/');
 /*Start Login service*/
+var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/manis?retryWrites=true&w=majority'
 router.get('/api/login',function(req,res){
 
 	var query=req.body;
 	console.log("input",req.body);
 	MongoClient=mongo.MongoClient;
 	//var url='mongodb://localhost/SA';
-	var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
+	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		if(err){
 			console.log("Error in connecting database");
 		}
 		else{
 			console.log('connected');
-			var db = client.db('whatsapp');
+			var db = client.db('manis');
 			//console.log(db);
 			//var collection=db.collection("login");
 			db.collection('login').findOne({username:query.username,password:query.password}, function (findErr, result) {
@@ -48,18 +49,45 @@ router.get('/api/contacts',function(req,res){
 	var query=req.body;
 	console.log("input",req.body);
 	MongoClient=mongo.MongoClient;
-	//var url='mongodb://localhost/SA';
-	var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
+	//var url='mongodb://localhost/SA';	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		if(err){
 			console.log("Error in connecting database");
 		}
 		else{
 			console.log('connected');
-			var db = client.db('whatsapp');
+			var db = client.db('manis');
 			//console.log(db);
 			//var collection=db.collection("login");
 			db.collection('contacts').find({}).toArray(function (findErr, result) {
+				if (findErr) throw findErr;
+				console.log(result);
+				if(result)
+				 res.json(result);
+				else
+				res.json({error:"Invalid Request"}); 
+				client.close();
+			  });
+			
+		} 	
+	});
+});
+router.get('/api/customer',function(req,res){
+
+	var query=req.body;
+	console.log("input",req.body);
+	MongoClient=mongo.MongoClient;
+	//var url='mongodb://localhost/SA';	
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		if(err){
+			console.log("Error in connecting database");
+		}
+		else{
+			console.log('connected');
+			var db = client.db('manis');
+			//console.log(db);
+			//var collection=db.collection("login");
+			db.collection('customer').find({}).toArray(function (findErr, result) {
 				if (findErr) throw findErr;
 				console.log(result);
 				if(result)
@@ -78,15 +106,14 @@ router.get('/api/template',function(req,res){
 	var query=req.body;
 	console.log("input",req.body);
 	MongoClient=mongo.MongoClient;
-	//var url='mongodb://localhost/SA';
-	var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
+	//var url='mongodb://localhost/SA';	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		if(err){
 			console.log("Error in connecting database");
 		}
 		else{
 			console.log('connected');
-			var db = client.db('whatsapp');
+			var db = client.db('manis');
 			//console.log(db);
 			//var collection=db.collection("login");
 			db.collection('template').find({}).toArray(function (findErr, result) {
@@ -108,20 +135,50 @@ router.post('/api/contacts',function(req,res){
 var query=req.body;
 	console.log("input",req.body);
 	MongoClient=mongo.MongoClient;
-	//var url='mongodb://localhost/SA';
-	var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
+	//var url='mongodb://localhost/SA';	
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		if(err){
 			console.log("Error in connecting database");
 		}
 		else{
 			console.log('connected');
-			var db = client.db('whatsapp');
+			var db = client.db('manis');
 			//console.log(db);
 			//var collection=db.collection("login");
 			delete query.id;
 			delete query._id;
 			db.collection('contacts').insert(query, function (findErr, result) {
+				if (findErr) throw findErr;
+				console.log(result);
+				if(result)
+				 res.json("Success");
+				else
+				res.json({error:"Invalid Request"}); 
+				client.close();
+			  });
+			
+		} 	
+	});
+});
+
+router.post('/api/customer',function(req,res){
+	console.log("In Post");
+var query=req.body;
+	console.log("input",req.body);
+	MongoClient=mongo.MongoClient;
+	//var url='mongodb://localhost/SA';	
+	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
+		if(err){
+			console.log("Error in connecting database");
+		}
+		else{
+			console.log('connected');
+			var db = client.db('manis');
+			//console.log(db);
+			//var collection=db.collection("login");
+			delete query.id;
+			delete query._id;
+			db.collection('customer').insert(query, function (findErr, result) {
 				if (findErr) throw findErr;
 				console.log(result);
 				if(result)
@@ -141,14 +198,13 @@ var query=req.body;
 	console.log("input",req.body);
 	MongoClient=mongo.MongoClient;
 	//var url='mongodb://localhost/SA';
-	var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
 	MongoClient.connect(url,{ useNewUrlParser: true },function(err,client){
 		if(err){
 			console.log("Error in connecting database");
 		}
 		else{
 			console.log('connected');
-			var db = client.db('whatsapp');
+			var db = client.db('manis');
 			//console.log(db);
 			//var collection=db.collection("login");
 			delete query.id;
@@ -173,13 +229,12 @@ router.put('/api/contacts',function(req,res){
 var query=req.body;
 console.log(query);
 MongoClient=mongo.MongoClient;
-var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
 MongoClient.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true } ,function(err,client){
 if(err){
 	console.log("Error is getting data "+err);
 }
 else{
-	var db = client.db('whatsapp');
+	var db = client.db('manis');
 	//console.log(db);
 	//var collection=db.collection("login");
 	db.collection('contacts').updateOne({_id:ObjectID(query._id)},{$set:{'name':query.name,'emailid':query.emailid,'phone':query.phone}}, function (findErr, result) {
@@ -200,13 +255,12 @@ router.delete('/api/contacts',function(req,res){
 var query=req.body;
 console.log(query);
 MongoClient=mongo.MongoClient;
-var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
 MongoClient.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true } ,function(err,client){
 if(err){
 	console.log("Error is getting data "+err);
 }
 else{
-	var db = client.db('whatsapp');
+	var db = client.db('manis');
 	//console.log(db);
 	//var collection=db.collection("login");
 	db.collection('contacts').remove({_id:ObjectID(query._id)}, function (findErr, result) {
@@ -227,13 +281,12 @@ router.put('/api/template',function(req,res){
 var query=req.body;
 console.log(query);
 MongoClient=mongo.MongoClient;
-var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
 MongoClient.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true } ,function(err,client){
 if(err){
 	console.log("Error is getting data "+err);
 }
 else{
-	var db = client.db('whatsapp');
+	var db = client.db('manis');
 	//console.log(db);
 	//var collection=db.collection("login");
 	db.collection('template').updateOne({_id:ObjectID(query._id)},{$set:{'title':query.title,'message':query.message}}, function (findErr, result) {
@@ -254,13 +307,12 @@ router.delete('/api/template',function(req,res){
 var query=req.body;
 console.log(query);
 MongoClient=mongo.MongoClient;
-var url='mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/whatsapp?retryWrites=true&w=majority'
 MongoClient.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true } ,function(err,client){
 if(err){
 	console.log("Error is getting data "+err);
 }
 else{
-	var db = client.db('whatsapp');
+	var db = client.db('manis');
 	//console.log(db);
 	//var collection=db.collection("login");
 	db.collection('template').remove({_id:ObjectID(query._id)}, function (findErr, result) {
