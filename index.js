@@ -9,7 +9,7 @@ var app= express();
 app.use(bodyParser.json());
 var urlencparse=bodyParser.urlencoded({extended:false});
 var port=process.env.PORT || 3000;
-//app.use('/',express.static(__dirname + '/pages'));
+app.use('/',express.static(__dirname + '/pages'));
 app.use(express.static(__dirname));
 
 app.use(require('./routes/index'));
